@@ -1,0 +1,50 @@
+//Imports
+#include "Wire.h"
+#include "LCD.h"
+#include "LiquidCrystal_I2C.h"
+
+//Defining pins and other Varibles
+#define I2C_ADDR 0x27  // Add your address here.
+#define Rs_pin 0
+#define Rw_pin 1
+#define En_pin 2
+#define BACKLIGHT_PIN 3
+#define D4_pin 4
+#define D5_pin 5
+#define D6_pin 6
+#define D7_pin 7
+
+
+LiquidCrystal_I2C lcd(I2C_ADDR,En_pin,Rw_pin,Rs_pin,D4_pin,D5_pin,D6_pin,D7_pin);
+
+void setup()
+{
+ lcd.begin (20,4); //  our LCD is a 20x4, change for your LCD if needed
+
+// LCD Backlight ON
+lcd.setBacklightPin(BACKLIGHT_PIN,POSITIVE);
+lcd.setBacklight(HIGH);
+
+lcd.home (); // go home on LCD
+//This is a constent Print that will display no matter what comes before the print in the loop
+
+lcd.print("Hello World!"); 
+}
+
+void loop()
+{
+  //The length of the string can only be a max of length
+  //of 20 characters.
+
+ //The first Line is 0,0 and then 0,1 then 0,2 and 0,3
+ lcd.setCursor (0,1); // go to start of 2nd line
+ lcd.print("This is a Test of");
+ lcd.setCursor (0,2);
+ lcd.print("the Lcd Display");
+ lcd.setCursor (0,3); // go to start of 4th line
+ lcd.print("DeltaEcho");
+
+ delay(500);
+ //One can add extra code to the loop which will chnage the content on a loop so 
+ //So it will change to the first part and then the second and then back to the first until the power is lost
+}
